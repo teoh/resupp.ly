@@ -92,6 +92,7 @@ app.put('/pushnewdata', function (err, req, res) {
 function insertIngredientToDb(data,myCallback){
   //TODO parse the data object and put into the data base using the sql object
 
+  // Clear out the stuff from the db with that user's info
   // connect to our database 
   client.connect(function (err) {
     if (err) throw err;
@@ -101,7 +102,7 @@ function insertIngredientToDb(data,myCallback){
       if (err) throw err;
    
       // just print the result to the console 
-      console.log(result.rows[0]); // outputs: { name: 'brianc' } 
+      console.log(result.rows[0]); 
    
       // disconnect the client 
       client.end(function (err) {
@@ -109,6 +110,30 @@ function insertIngredientToDb(data,myCallback){
       });
     });
   });
+
+  // Insert the list of items into the table
+  // connect to our database 
+  client.connect(function (err) {
+    if (err) throw err;
+   
+    var items = ['a','b','c'];
+    items.forEach( function(item){
+      // execute a query on our database 
+      client.query('INSERT INTO ingredients (id,balance) VALUES ({0},{1})'.format('1',item), function (err, result) {
+        if (err) throw err;
+     
+        // just print the result to the console 
+        console.log(result.rows[0]); 
+     
+        // disconnect the client 
+        client.end(function (err) {
+          if (err) throw err;
+        });
+      });
+    });
+    
+  });
+
 
     
 }
