@@ -35,7 +35,14 @@ pg.connect(config, function (err, client, done) {
       // Create the "accounts" table.
       client.query("CREATE TABLE IF NOT EXISTS ingredients (id INT PRIMARY KEY, item STRING);", next);
     },
-
+    // function (next) {
+    //   // Insert two rows into the "accounts" table.
+    //   client.query("INSERT INTO accounts (id, balance) VALUES (1, 1000), (2, 250);", next);
+    // },
+    // function (results, next) {
+    //   // Print out the balances.
+    //   client.query('SELECT id, balance FROM accounts;', next);
+    // },
   ],
   function (err, results) {
     if (err) {
@@ -46,6 +53,8 @@ pg.connect(config, function (err, client, done) {
     finish();
   });
 });
+
+var client = new pg.Client();
 
 
 
@@ -73,9 +82,49 @@ app.put('/pushnewdata', function (err, req, res) {
   
 });
 function insertIngredientToDb(data,myCallback){
-    
+  //TODO parse the data object and put into the data base using the sql object
 
+  // Clear out the stuff from the db with that user's info
+  // connect to our database 
+  client.connect(function (err) {
+    if (err) throw err;
    
+    // execute a query on our database 
+    client.query('DELETE FROM ingredients WHERE id = $1::int', ['1'], function (err, result) {
+      if (err) throw err;
+   
+      // just print the result to the console 
+      console.log(result.rows[0]); 
+   
+      // disconnect the client 
+      client.end(function (err) {
+        if (err) throw err;
+      });
+    });
+  });
+
+  // Insert the list of items into the table
+  // connect to our database 
+  client.connect(function (err) {
+    if (err) throw err;
+   
+    var items = ['a','b','c'];
+    items.forEach( function(item){
+      // execute a query on our database 
+      client.query('INSERT INTO ingredients (id,balance) VALUES ({0},{1})'.format('1',item), function (err, result) {
+        if (err) throw err;
+     
+        // just print the result to the console 
+        console.log(result.rows[0]); 
+     
+        // disconnect the client 
+        client.end(function (err) {
+          if (err) throw err;
+        });
+      });
+    });
+    
+  });
 }
 function getIngredientFromDb(id,dataCallBack){
     //TODO get the items and return in a dataCallBack
