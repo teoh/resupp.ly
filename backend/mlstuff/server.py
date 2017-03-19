@@ -7,15 +7,18 @@ from keras.preprocessing import image
 from keras.applications.resnet50 import preprocess_input, decode_predictions
 from keras.layers import Flatten, Dense, Input
 from keras.models import Model
+from keras.regularizers import l2
+
+import numpy as np
 
 import numpy as np
 
 # EVERYTHING MODELS 
-def model(input_shape=[224,224,3], num_labels=5):
+def model(input_shape=[224,224,3], num_labels=5, reg=5e-2):
     X = Input(shape=input_shape)
     base_model = ResNet50(include_top=False, weights='imagenet', input_tensor=X)
     fl = Flatten()(base_model.output)
-    predict = Dense(units=num_labels)(fl)
+    predict = Dense(units=num_labels, activation='sigmoid', kernel_regularizer=l2(reg), kernel_initializer='he_uniform')(fl)
     
     _m = Model(inputs=X, outputs=predict)
     _m.compile(loss='binary_crossentropy', optimizer='Adam')
@@ -30,6 +33,7 @@ def preprocess_image(path):
 	return x
 
 M = model()
+M.load_weights('./MW.h5')
 app = Flask(__name__)
 
 def post_request(labels):
