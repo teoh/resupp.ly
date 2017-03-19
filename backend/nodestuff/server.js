@@ -62,7 +62,7 @@ app.get('/pushnewdata', function (req, res) {
     //TODO get the data form the body and pass into insertIngredientToDb
 
     // If there is no error while trying to input
-    console.log(req.body);
+    //console.log(req.body);
     insertIngredientToDb(req.body,(callback)=>{
         if(callback){
             console.log("push new data endpoint called");
@@ -81,7 +81,13 @@ function insertIngredientToDb(data,callback){
 
   // Clear out the stuff from the db with that user's info
   // connect to our database 
-  pg.connect(config,function (err,client) {
+  pg.connect(config,function (err,client,done) {
+
+    var finish = function () {
+      done();
+      process.exit();
+    };
+
     if (err) throw err;
    
     // execute a query on our database 
@@ -108,36 +114,36 @@ function insertIngredientToDb(data,callback){
 
   // Insert the list of items into the table
   // connect to our database 
-  pg.connect(config,function (err,client) {
+  pg.connect(config,function (err,client,done) {
+
+    var finish = function () {
+      done();
+      process.exit();
+    };
+
     if (err) throw err;
-    client.query("INSERT INTO groceries.ingredients (id,item) VALUES (1,'banana');", function (err, result) {
-        if (err) throw err;
-    
-        // just print the result to the console 
-        console.log(result.rows[0]); 
-    
-        // disconnect the client 
-        client.end(function (err) {
-            if (err) throw err;
-        });
+
     var items = ['a'];
-    // items.forEach( function(item){
-    //   // execute a query on our database 
-    //   client.query('INSERT INTO ingredients (id,item) VALUES (1,"banana");', function (err, result) {
-    //     if (err) throw err;
-     
-    //     // just print the result to the console 
-    //     console.log(result.rows[0]); 
-     
-    //     // disconnect the client 
-    //     client.end(function (err) {
-    //       if (err) throw err;
-    //     });
-    //   });
-    // });
+    items.forEach( function(item){
+      // execute a query on our database 
+      console.log('here we go again!!')
+
+      async.waterfall([
+        function (next) {
+            // Create the "accounts" table.
+            client.query("INSERT INTO ingredients (id,item) VALUES (1,'banana');", next);
+        }
+      ],
+      function (err,result){
+        console.log(err);
+        console.log(result);
+        finish();
+      }
+
+      )
+    });
     
-    });
-    });
+  });
 }
 function getIngredientFromDb(id,callback){
     //TODO get the items and return in a dataCallBack
