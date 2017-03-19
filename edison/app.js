@@ -23,7 +23,7 @@ Cylon.robot({
     uploadImage: function () {
         const options = {
             method: 'POST',
-            url: 'http://52.228.33.184:7777/new_image',
+            url: 'http://52.228.33.184:6000/new_image',
             headers: {
                 'cache-control': 'no-cache',
                 'content-type': 'multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW'
@@ -61,13 +61,13 @@ Cylon.robot({
                     if (error !== null) {
                         console.log('exec error: ' + error);
                     }
-                    my.uploadImage();
 
                     setTimeout(() => {
-
                         my.led.turnOff();
                         my.isRunning = false;
                     }, 1000);
+
+                    my.uploadImage();
                 })
              }, 1000)
         });
