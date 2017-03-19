@@ -123,16 +123,31 @@ function insertIngredientToDb(data,callback){
 
     if (err) throw err;
 
-    var items = ['a'];
-    items.forEach( function(item){
-      // execute a query on our database 
-      console.log('here we go again!!')
+    var items = ['a','b','c','d','e'];
 
-      async.waterfall([
-        function (next) {
-            // Create the "accounts" table.
-            client.query("INSERT INTO ingredients (id,item) VALUES (1,'banana');", next);
-        }
+    // execute a query on our database 
+    console.log('here we go again!!')
+
+    async.waterfall([
+
+      function (next) {
+        // Create the "accounts" table.
+        items.forEach(function(item){
+          console.log(item)
+          client.query("INSERT INTO ingredients (id,item) VALUES ($1,$2);",[1,item],function (err,result){
+            done();
+            if(err){
+              throw err;
+            }
+          });
+
+          
+        });
+        callback(true);
+        
+      }
+
+      
       ],
       function (err,result){
         console.log(err);
@@ -140,8 +155,7 @@ function insertIngredientToDb(data,callback){
         finish();
       }
 
-      )
-    });
+    )
     
   });
 }
