@@ -63,7 +63,7 @@ app.get('/pushnewdata', function (req, res) {
 
     // If there is no error while trying to input
   
-    insertIngredientToDb((data,callback)=>{
+    insertIngredientToDb(data,(callback)=>{
         if(callback){
             console.log("push new data endpoint called");
             res.status(200).send('You successfully put in new data\n');
@@ -89,8 +89,6 @@ function insertIngredientToDb(data,callback){
        if (err) {
             throw err;
             callback(false);
-        }else{
-             callback(true);
         }
    
       // just print the result to the console 
@@ -101,8 +99,6 @@ function insertIngredientToDb(data,callback){
         if (err) {
             throw err;
             callback(false);
-        }else{
-             callback(true);
         }
         
       });
