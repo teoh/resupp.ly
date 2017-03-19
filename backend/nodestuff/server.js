@@ -13,7 +13,7 @@ const PORT = 8081;
 // Connect to the "bank" database.
 var config = {
   user: 'maxroach',
-  host: 'localhost',
+  host: '0.0.0.0',
   database: 'groceries',
   port: 26257
 };
