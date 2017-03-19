@@ -33,7 +33,7 @@ pg.connect(config, function (err, client, done) {
   async.waterfall([
     function (next) {
       // Create the "accounts" table.
-      client.query("CREATE TABLE IF NOT EXISTS ingredients (id INT PRIMARY KEY, item STRING);", next);
+      client.query("CREATE TABLE IF NOT EXISTS ingredients (id INT, item STRING);", next);
       console.log("creating table");
     },
     // function (next) {
@@ -85,7 +85,7 @@ function insertIngredientToDb(data,callback){
     if (err) throw err;
    
     // execute a query on our database 
-    client.query('DELETE FROM ingredients WHERE id = $1::int', ['1'], function (err, result) {
+    client.query('DELETE FROM ingredients WHERE id = 1', function (err, result) {
        if (err) {
             throw err;
             callback(false);
