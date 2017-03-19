@@ -114,7 +114,7 @@ function insertIngredientToDb(data,callback){
     var items = ['a','b','c'];
     items.forEach( function(item){
       // execute a query on our database 
-      client.query('INSERT INTO ingredients (id,item) VALUES ($1,$2);',[1,item], function (err, result) {
+      client.query('INSERT INTO ingredients (id,item) VALUES ($1,$2);',["1",item], function (err, result) {
         if (err) throw err;
      
         // just print the result to the console 
