@@ -23,7 +23,7 @@ Cylon.robot({
     },
     work: function (my) {
         my.button.on('push', () => {
-            my.led.toggle();
+            my.led.turnOn();
             setTimeout(() => {
                 childProcess.exec('/home/root/bin/ffmpeg/ffmpeg -f video4linux2  -s 1920x1080 -i /dev/video0 -vframes 1 ' + imageName, (error, stdout, stderr) => {
 
@@ -41,14 +41,13 @@ Cylon.robot({
                     imgur.upload(path.join(__dirname, imageName), function (err, res) {
                         console.log(res.data.link); // Log the imgur url
                     });
+
                     setTimeout(() => {
 
-                        my.led.toggle();
-                    },1000);
-                    
-                }, 1000)
-
-            });
-        })
+                        my.led.turnOff();
+                    }, 1000);
+                })
+            }, 1000)
+        });
     }
 }).start();
