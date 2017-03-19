@@ -108,7 +108,11 @@ router.get('/getRecommendation', function (req, res) {
             console.log('rows:');
             console.log(result.rows);
 
-
+            client.end(function (err) {
+                if (err) {
+                    throw err;
+                }
+            });
 
             res.status(200).send(getRecommendations(result.rows.map(it => {return it.item})));
 
