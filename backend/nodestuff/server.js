@@ -72,7 +72,7 @@ pg.connect(config, function (err, client, done) {
 
 
 
-router.put('/pushnewdata', function (req, res) {
+router.post('/pushnewdata', function (req, res) {
     //TODO get the data form the body and pass into insertIngredientToDb
 
     // If there is no error while trying to input
