@@ -1,12 +1,11 @@
 const Cylon = require('cylon');
 const childProcess = require('child_process');
-const imgur = require('imgur-node-api'),
     path = require('path');
 const fs = require('fs');
+var request = require("request");
 
 
 const imageName = "image.png";
-imgur.setClientID("f1adc9604875526");
 
 
 Cylon.robot({
@@ -21,7 +20,28 @@ Cylon.robot({
     reset: function () {
         this.led.turnOff();
     },
-    work: function (my) {
+    uploadImage: function () {
+        const options = {
+            method: 'POST',
+            url: 'http://52.228.33.184:7777/new_image',
+            headers: {
+                'cache-control': 'no-cache',
+                'content-type': 'multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW'
+            },
+            formData: {
+                file: {
+                    value: 'fs.createReadStream(\"' + imageName + '\")',
+                    options: {filename: imageName, contentType: null}
+                }
+            }
+        };
+
+        request(options, function (error, response, body) {
+            if (error) throw new Error(error);
+
+            console.log(body);
+        });
+    }, work: function (my) {
         my.button.on('push', () => {
             if(my.isRunning){
                 return
@@ -41,15 +61,7 @@ Cylon.robot({
                     if (error !== null) {
                         console.log('exec error: ' + error);
                     }
-
-                    fs.readFile(imageName, function (err, original_data) {
-                        var base64Image = original_data.toString('base64');
-
-                    });
-
-                    imgur.upload(path.join(__dirname, imageName), function (err, res) {
-                        console.log(res.data.link); // Log the imgur url
-                    });
+                    my.uploadImage();
 
                     setTimeout(() => {
 
