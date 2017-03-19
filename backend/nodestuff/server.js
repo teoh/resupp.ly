@@ -95,9 +95,16 @@ function insertIngredientToDb(data,myCallback){
    
       // disconnect the client 
       client.end(function (err) {
-        if (err) throw err;
+        if (err) {
+            throw err;
+            myCallback(false);
+        }else{
+             myCallback(true);
+        }
+        
       });
     });
+
   });
 
   // Insert the list of items into the table
