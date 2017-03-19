@@ -35,6 +35,7 @@ pg.connect(config, function (err, client, done) {
       // Create the "accounts" table.
       client.query("CREATE TABLE IF NOT EXISTS accounts (id INT PRIMARY KEY, balance INT);", next);
     },
+
     // function (next) {
     //   // Insert two rows into the "accounts" table.
     //   client.query("INSERT INTO accounts (id, balance) VALUES (1, 1000), (2, 250);", next);
@@ -58,6 +59,8 @@ pg.connect(config, function (err, client, done) {
     finish();
   });
 });
+
+var client = new pg.Client();
 
 
 
@@ -87,7 +90,27 @@ app.put('/pushnewdata', function (err, req, res) {
   
 });
 function insertIngredientToDb(data,myCallback){
-    //TODO parse the data object and put into the data base using the sql object
+  //TODO parse the data object and put into the data base using the sql object
+
+  // connect to our database 
+  client.connect(function (err) {
+    if (err) throw err;
+   
+    // execute a query on our database 
+    client.query('DELETE FROM ingredients WHERE id = $1::int', ['1'], function (err, result) {
+      if (err) throw err;
+   
+      // just print the result to the console 
+      console.log(result.rows[0]); // outputs: { name: 'brianc' } 
+   
+      // disconnect the client 
+      client.end(function (err) {
+        if (err) throw err;
+      });
+    });
+  });
+
+    
 }
 function getIngredientFromDb(id,dataCallBack){
     //TODO get the items and return in a dataCallBack
