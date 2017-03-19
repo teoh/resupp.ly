@@ -17,12 +17,17 @@ Cylon.robot({
         button: {driver: 'button', pin: 8, connection: 'edison'},
         led: {driver: 'led', pin: 13}
     },
-    isEnabled: true,
+    isRunning: false,
     reset: function () {
         this.led.turnOff();
     },
     work: function (my) {
         my.button.on('push', () => {
+            if(my.isRunning){
+                return
+            }else {
+                my.isRunning = true
+            }
             my.led.turnOn();
             console.log("led on");
             setTimeout(() => {
@@ -49,6 +54,7 @@ Cylon.robot({
                     setTimeout(() => {
 
                         my.led.turnOff();
+                        my.isRunning = false;
                     }, 1000);
                 })
              }, 1000)
