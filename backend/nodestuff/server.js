@@ -66,6 +66,7 @@ pg.connect(config, function (err, client, done) {
       finish();
     }
 
+
   });
 });
 
@@ -107,12 +108,7 @@ router.get('/getRecommendation', function (req, res) {
             console.log('rows:');
             console.log(result.rows);
 
-            // disconnect the client
-            client.end(function (err) {
-                if (err) {
-                    throw err;
-                }
-            });
+
 
             res.status(200).send(getRecommendations(result.rows.map(it => {return it.item})));
 
@@ -127,11 +123,6 @@ router.get('/getIngredientRecommendation', function (req, res) {
 
     // If there is no error while trying to input
     pg.connect(config,function (err,client,done) {
-
-        var finish = function () {
-            done();
-            process.exit();
-        };
 
         client.query('SELECT * FROM groceries.ingredients', (err, result) => {
             if (err) {
@@ -158,22 +149,25 @@ router.get('/getFridge', function (req, res) {
     //TODO get the data form the body and pass into insertIngredientToDb
 
     // If there is no error while trying to input
-    pg.connect(config,function (err,client,done) {
+    pg.connect(config,function (err,client,olddone) {
 
-        var finish = function () {
-            done();
-            process.exit();
-        };
+        if (err) {
+            console.log(err);
+            throw err;
+        }
 
         client.query('SELECT * FROM groceries.ingredients', (err, result) => {
             if (err) {
-                return res.status(200).send('insert data failed \n');
+                   console.log(err)
+                 res.status(200).send('get failed\n');
+                   return done()
             }
             console.log('rows:');
             console.log(result.rows);
 
             // disconnect the client
             client.end(function (err) {
+                console.log("end happened");
                 if (err) {
                     throw err;
                 }
