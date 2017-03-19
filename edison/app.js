@@ -28,7 +28,7 @@ Cylon.robot({
             setTimeout(() => {
                 console.log("running ffmpeg");
 
-                childProcess.exec('/home/root/bin/ffmpeg/ffmpeg -f video4linux2  -s 1920x1080 -i /dev/video0 -vframes 1 -y ' + imageName, (error, stdout, stderr) => {
+                childProcess.exec('/home/root/bin/ffmpeg/ffmpeg -f video4linux2  -s 1920x1080 -i /dev/video0 -vframes 1 -vf vflip -c:a copy -y image.png' + imageName, (error, stdout, stderr) => {
                     console.log("done ffmpeg");
 
                     console.log('stdout: ' + stdout);
