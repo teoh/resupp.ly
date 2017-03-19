@@ -1,7 +1,9 @@
-var Cylon = require('cylon');
-var childProcess = require('child_process');
-var imgur = require('imgur-node-api'),
+const Cylon = require('cylon');
+const childProcess = require('child_process');
+const imgur = require('imgur-node-api'),
     path = require('path');
+const fs = require('fs');
+
 
 const imageName = "image.png";
 imgur.setClientID("f1adc9604875526");
