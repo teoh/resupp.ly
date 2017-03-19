@@ -89,7 +89,7 @@ router.post('/pushnewdata', function (req, res) {
   
 });
 
-router.post('/getRecomendation', function (req, res) {
+router.get('/getRecomendation', function (req, res) {
     //TODO get the data form the body and pass into insertIngredientToDb
 
     // If there is no error while trying to input
