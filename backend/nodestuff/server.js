@@ -60,25 +60,20 @@ var client = new pg.Client();
 
 // App
 const app = express();
-app.get('/pushnewdata', function (err, req, res) {
+app.get('/pushnewdata', function (req, res) {
     //TODO get the data form the body and pass into insertIngredientToDb
 
     // If there is no error while trying to input
-    if(!err){
-        insertIngredientToDb((data,insertSuccessful)=>{
-            if(insertSuccessful){
-                console.log("push new data endpoint called");
-                res.status(200).send('You successfully put in new data\n');
-            }else{
-                console.log("Something went wrong when calling insertIngredientToDb");
-                res.status(200).send('insert data failed \n');
-            }
-        });
-    }
-    // If there's an error uploading the file
-    else{
-        res.status(500).send('Something went wrong while trying to insert new data');
-    }
+  
+    insertIngredientToDb((data,insertSuccessful)=>{
+        if(insertSuccessful){
+            console.log("push new data endpoint called");
+            res.status(200).send('You successfully put in new data\n');
+        }else{
+            console.log("Something went wrong when calling insertIngredientToDb");
+            res.status(200).send('insert data failed \n');
+        }
+    });
   
 });
 
