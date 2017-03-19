@@ -89,6 +89,38 @@ router.post('/pushnewdata', function (req, res) {
   
 });
 
+router.post('/getRecomendation', function (req, res) {
+    //TODO get the data form the body and pass into insertIngredientToDb
+
+    // If there is no error while trying to input
+    pg.connect(config,function (err,client,done) {
+
+        var finish = function () {
+            done();
+            process.exit();
+        };
+
+        client.query('SELECT * FROM groceries.ingredients', (err, result) => {
+            if (err) {
+                return res.status(200).send('insert data failed \n');
+            }
+            console.log('rows:');
+            console.log(result.rows);
+
+            // disconnect the client
+            client.end(function (err) {
+                if (err) {
+                    throw err;
+                }
+            });
+
+            res.status(200).send(getRecommendations(result.rows.map(it => {return it.item})));
+
+        });
+    })
+
+});
+
 
 function insertIngredientToDb(data,callback){
   //TODO parse the data object and put into the data base using the sql object
@@ -137,10 +169,8 @@ function insertIngredientToDb(data,callback){
 
     if (err) throw err;
 
-    var items = ['a','b','c','d','e'];
-
+    let items = data.ingredients;
     // execute a query on our database 
-    console.log('here we go again!!')
 
     async.waterfall([
 
@@ -233,11 +263,11 @@ function distanceSort(a, b) {
 
 
 function euclideanDistance(a, b) {
-    let squaredD;
+    let squaredD =0 ;
     for (let i = 0; i < a.length; i++) {
         squaredD += Math.pow(a[i] - b[i], 2);
     }
-    Math.sqrt(squaredD)
+  return Math.sqrt(squaredD)
 }
 
 function findKTopRecipes(ingredients, k) {
