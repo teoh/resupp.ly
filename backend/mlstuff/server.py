@@ -36,7 +36,7 @@ M = model()
 # M.load_weights('./MW.h5')
 app = Flask(__name__)
 
-def post_request(labels):
+def get_request(labels):
 	r = requests.get('52.228.33.184:8080/pushnewdata',json = {'ingredients': labels})
 
 @app.route("/hello")
@@ -52,7 +52,7 @@ def new_image():
 		file.save('./TEST.png')
 		x = preprocess_image('./TEST.png')
 		preds = M.predict(x)
-		post_request(['eggs','coffee'])
+		get_request(['eggs','coffee'])
 		
 
         return 'success!'
