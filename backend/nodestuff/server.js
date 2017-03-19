@@ -85,7 +85,7 @@ function insertIngredientToDb(data,callback){
     if (err) throw err;
    
     // execute a query on our database 
-    client.query('DELETE FROM ingredients WHERE id = 1', function (err, result) {
+    client.query('DELETE FROM groceries.ingredients WHERE id = 1', function (err, result) {
        if (err) {
             throw err;
             callback(false);
