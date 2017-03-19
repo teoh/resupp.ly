@@ -165,9 +165,78 @@ function getIngredientFromDb(id,callback){
     //output {"fridgeitem1","fridgeitem2","fridgeitem3",....}
 
 }
-function getRecomedtion(){
-  //input nothing
-  //output {"recipe":bakedbeans, ingredients:["fidgeitem1","fridgeitem2",...]}
+
+function ingredientsToFixedVector(ingredients) {
+    let fixedVector = [0, 0, 0, 0, 0];
+    for (let ingredient of ingredients) {
+        switch (ingredient) {
+            case "potato":
+                fixedVector[0] = 1;
+                break;
+            case "carrot":
+                fixedVector[1] = 1;
+                break;
+            case "egg":
+                fixedVector[2] = 1;
+                break;
+            case  "mushroom":
+                fixedVector[3] = 1;
+                break;
+            case  "pasta_sause":
+                fixedVector[4] = 1;
+                break;
+        }
+    }
+    return fixedVector;
+}
+
+const recipes = [{
+    name: "potato carrot soup",
+    ingredients: ["potato", "carrot"]
+}, {
+    name: "potato mushroom soup",
+    ingredients: ["potato", "mushroom"]
+}, {
+    name: "carrot mushroom soup",
+    ingredients: ["carrot", "mushroom"]
+}
+].map(it => {
+    it.vector = ingredientsToFixedVector(it.ingredients);
+    return it
+});
+
+
+function distanceSort(a, b) {
+    if (a.distance < b.distance) {
+        return -1;
+    }
+    if (a.distance > b.distance) {
+        return 1;
+    }
+    // a must be equal to b
+    return 0;
+}
+
+
+function euclideanDistance(a, b) {
+    let squaredD;
+    for (let i = 0; i < a.length; i++) {
+        squaredD += Math.pow(a[i] - b[i], 2);
+    }
+    Math.sqrt(squaredD)
+}
+
+function findKTopRecipes(ingredients, k) {
+    let vector = ingredientsToFixedVector(ingredients);
+    let kTopRecipes = recipes.map(it => {
+        it.distance = euclideanDistance(it.vector, vector);
+        return it
+    }).sort(distanceSort).slice(0, Math.min(k, recipes.length));
+    return kTopRecipes
+}
+
+function getRecommendations(ingredients) {
+    return findKTopRecipes(ingredients, 10)
 }
 
 app.listen(PORT);
