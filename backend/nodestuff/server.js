@@ -34,6 +34,7 @@ pg.connect(config, function (err, client, done) {
     function (next) {
       // Create the "accounts" table.
       client.query("CREATE TABLE IF NOT EXISTS ingredients (id INT PRIMARY KEY, item STRING);", next);
+      console.log("creating table");
     },
     // function (next) {
     //   // Insert two rows into the "accounts" table.
