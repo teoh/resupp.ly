@@ -110,22 +110,31 @@ function insertIngredientToDb(data,callback){
   // connect to our database 
   pg.connect(config,function (err,client) {
     if (err) throw err;
-   
-    var items = ['a'];
-    items.forEach( function(item){
-      // execute a query on our database 
-      client.query('INSERT INTO ingredients (id,item) VALUES (1,"banana");', function (err, result) {
+    client.query('INSERT INTO ingredients (id,item) VALUES (1,"banana");', function (err, result) {
         if (err) throw err;
-     
+    
         // just print the result to the console 
         console.log(result.rows[0]); 
-     
+    
         // disconnect the client 
         client.end(function (err) {
-          if (err) throw err;
-        });
-      });
+        if (err) throw err;
     });
+    var items = ['a'];
+    // items.forEach( function(item){
+    //   // execute a query on our database 
+    //   client.query('INSERT INTO ingredients (id,item) VALUES (1,"banana");', function (err, result) {
+    //     if (err) throw err;
+     
+    //     // just print the result to the console 
+    //     console.log(result.rows[0]); 
+     
+    //     // disconnect the client 
+    //     client.end(function (err) {
+    //       if (err) throw err;
+    //     });
+    //   });
+    // });
     
   });
 }
