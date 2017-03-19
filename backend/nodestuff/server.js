@@ -5,6 +5,9 @@ const express = require('express');
 var async = require('async');
 // Require the driver.
 var pg = require('pg');
+var bodyParser = require('body-parser');
+// App
+const app = express();
 
 // Constants
 const PORT = 8081;
@@ -18,6 +21,7 @@ var config = {
   port: 26257
 };
 // Get ref to the express router
+app.use(bodyParser.json());
 var router = express.Router();
 router.use(function(req, res, next) {
     // Set the default headers configs
@@ -67,8 +71,7 @@ pg.connect(config, function (err, client, done) {
 
 
 
-// App
-const app = express();
+
 router.get('/pushnewdata', function (req, res) {
     //TODO get the data form the body and pass into insertIngredientToDb
 
