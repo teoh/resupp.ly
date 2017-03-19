@@ -89,7 +89,7 @@ router.post('/pushnewdata', function (req, res) {
   
 });
 
-router.get('/getRecomendation', function (req, res) {
+router.get('/getRecommendation', function (req, res) {
     //TODO get the data form the body and pass into insertIngredientToDb
 
     // If there is no error while trying to input
@@ -121,6 +121,38 @@ router.get('/getRecomendation', function (req, res) {
 
 });
 
+
+router.get('/getIngredientRecommendation', function (req, res) {
+    //TODO get the data form the body and pass into insertIngredientToDb
+
+    // If there is no error while trying to input
+    pg.connect(config,function (err,client,done) {
+
+        var finish = function () {
+            done();
+            process.exit();
+        };
+
+        client.query('SELECT * FROM groceries.ingredients', (err, result) => {
+            if (err) {
+                return res.status(200).send('insert data failed \n');
+            }
+            console.log('rows:');
+            console.log(result.rows);
+
+            // disconnect the client
+            client.end(function (err) {
+                if (err) {
+                    throw err;
+                }
+            });
+
+            res.status(200).send(getRecommendedIngredients(result.rows.map(it => {return it.item})));
+
+        });
+    })
+
+});
 
 router.get('/getFridge', function (req, res) {
     //TODO get the data form the body and pass into insertIngredientToDb
