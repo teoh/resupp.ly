@@ -33,27 +33,15 @@ pg.connect(config, function (err, client, done) {
   async.waterfall([
     function (next) {
       // Create the "accounts" table.
-      client.query("CREATE TABLE IF NOT EXISTS accounts (id INT PRIMARY KEY, balance INT);", next);
+      client.query("CREATE TABLE IF NOT EXISTS ingredients (id INT PRIMARY KEY, item STRING);", next);
     },
-    // function (next) {
-    //   // Insert two rows into the "accounts" table.
-    //   client.query("INSERT INTO accounts (id, balance) VALUES (1, 1000), (2, 250);", next);
-    // },
-    // function (results, next) {
-    //   // Print out the balances.
-    //   client.query('SELECT id, balance FROM accounts;', next);
-    // },
+
   ],
   function (err, results) {
     if (err) {
       console.error('error crating table', err);
       finish();
     }
-
-    // console.log('Initial balances:');
-    // results.rows.forEach(function (row) {
-    //   console.log(row);
-    // });
 
     finish();
   });
@@ -65,8 +53,6 @@ pg.connect(config, function (err, client, done) {
 const app = express();
 app.put('/pushnewdata', function (err, req, res) {
     //TODO get the data form the body and pass into insertIngredientToDb
-
-
 
     // If there is no error while trying to input
     if(!err){
@@ -87,7 +73,9 @@ app.put('/pushnewdata', function (err, req, res) {
   
 });
 function insertIngredientToDb(data,myCallback){
-    //TODO parse the data object and put into the data base using the sql object
+    
+
+   
 }
 function getIngredientFromDb(id,dataCallBack){
     //TODO get the items and return in a dataCallBack
