@@ -83,7 +83,7 @@ function insertIngredientToDb(data,myCallback){
 
   // Clear out the stuff from the db with that user's info
   // connect to our database 
-  client.connect(function (err) {
+  client.connect(config,function (err) {
     if (err) throw err;
    
     // execute a query on our database 
@@ -102,7 +102,7 @@ function insertIngredientToDb(data,myCallback){
 
   // Insert the list of items into the table
   // connect to our database 
-  client.connect(function (err) {
+  client.connect(config,function (err) {
     if (err) throw err;
    
     var items = ['a','b','c'];
