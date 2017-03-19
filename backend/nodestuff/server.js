@@ -111,10 +111,10 @@ function insertIngredientToDb(data,callback){
   pg.connect(config,function (err,client) {
     if (err) throw err;
    
-    var items = ['a','b','c'];
+    var items = ['a'];
     items.forEach( function(item){
       // execute a query on our database 
-      client.query('INSERT INTO ingredients (id,item) VALUES ($1,$2);',["1",item], function (err, result) {
+      client.query('INSERT INTO ingredients (id,item) VALUES (1,"banana");', function (err, result) {
         if (err) throw err;
      
         // just print the result to the console 
