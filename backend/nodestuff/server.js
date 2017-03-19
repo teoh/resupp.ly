@@ -51,7 +51,6 @@ pg.connect(config, function (err, client, done) {
       finish();
     }
 
-    finish();
   });
 });
 
