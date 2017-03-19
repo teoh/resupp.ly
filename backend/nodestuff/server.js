@@ -60,7 +60,7 @@ var client = new pg.Client();
 
 // App
 const app = express();
-app.put('/pushnewdata', function (err, req, res) {
+app.get('/pushnewdata', function (err, req, res) {
     //TODO get the data form the body and pass into insertIngredientToDb
 
     // If there is no error while trying to input
