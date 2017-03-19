@@ -11,7 +11,7 @@ from keras.regularizers import l2
 
 import numpy as np
 
-import numpy as np
+import requests
 
 # EVERYTHING MODELS 
 def model(input_shape=[224,224,3], num_labels=5, reg=5e-2):
@@ -33,11 +33,11 @@ def preprocess_image(path):
 	return x
 
 M = model()
-M.load_weights('./MW.h5')
+# M.load_weights('./MW.h5')
 app = Flask(__name__)
 
 def post_request(labels):
-	pass
+	r = requests.get('52.228.33.184:8080/pushnewdata',json = {'ingredients': labels})
 
 @app.route("/hello")
 def hello():
@@ -52,6 +52,7 @@ def new_image():
 		file.save('./TEST.png')
 		x = preprocess_image('./TEST.png')
 		preds = M.predict(x)
+		post_request(['eggs','coffee'])
 		
 
         return 'success!'
