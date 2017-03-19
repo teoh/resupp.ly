@@ -41,9 +41,12 @@ Cylon.robot({
                     imgur.upload(path.join(__dirname, imageName), function (err, res) {
                         console.log(res.data.link); // Log the imgur url
                     });
+                    setTimeout(() => {
 
-                    my.led.toggle();
-                }, 500)
+                        my.led.toggle();
+                    },1000);
+                    
+                }, 1000)
 
             });
         })
