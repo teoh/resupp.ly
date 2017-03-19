@@ -63,8 +63,8 @@ app.get('/pushnewdata', function (req, res) {
 
     // If there is no error while trying to input
   
-    insertIngredientToDb((data,insertSuccessful)=>{
-        if(insertSuccessful){
+    insertIngredientToDb((data,callback)=>{
+        if(callback){
             console.log("push new data endpoint called");
             res.status(200).send('You successfully put in new data\n');
         }else{
@@ -76,7 +76,7 @@ app.get('/pushnewdata', function (req, res) {
 });
 
 
-function insertIngredientToDb(data,myCallback){
+function insertIngredientToDb(data,callback){
   //TODO parse the data object and put into the data base using the sql object
 
   // Clear out the stuff from the db with that user's info
@@ -88,9 +88,9 @@ function insertIngredientToDb(data,myCallback){
     client.query('DELETE FROM ingredients WHERE id = $1::int', ['1'], function (err, result) {
        if (err) {
             throw err;
-            myCallback(false);
+            callback(false);
         }else{
-             myCallback(true);
+             callback(true);
         }
    
       // just print the result to the console 
@@ -100,9 +100,9 @@ function insertIngredientToDb(data,myCallback){
       client.end(function (err) {
         if (err) {
             throw err;
-            myCallback(false);
+            callback(false);
         }else{
-             myCallback(true);
+             callback(true);
         }
         
       });
@@ -133,7 +133,7 @@ function insertIngredientToDb(data,myCallback){
     
   });
 }
-function getIngredientFromDb(id,dataCallBack){
+function getIngredientFromDb(id,callback){
     //TODO get the items and return in a dataCallBack
 
 }
