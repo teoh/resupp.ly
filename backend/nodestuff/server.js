@@ -249,6 +249,19 @@ function findKTopRecipes(ingredients, k) {
 function getRecommendations(ingredients) {
     return findKTopRecipes(ingredients, 10)
 }
+
+function getRecommendedIngredients(ingredients) {
+    let set = new Set();
+    for (let recipe of findKTopRecipes(ingredients, 20)){
+        for (let ingredient of recipe.ingredients){
+            set.add(ingredient);
+        }
+    }
+
+    return Array.from(set).filter(it => {return !ingredients.includes(it)})
+}
+
+
 app.use('/', router);
 app.listen(PORT);
 console.log('Running on http://localhost:' + PORT);
