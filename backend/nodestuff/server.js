@@ -288,7 +288,7 @@ function ingredientsToFixedVector(ingredients) {
             case  "mushroom":
                 fixedVector[3] = 1;
                 break;
-            case  "pasta_sause":
+            case  "pasta sauce":
                 fixedVector[4] = 1;
                 break;
         }
@@ -298,14 +298,30 @@ function ingredientsToFixedVector(ingredients) {
 
 const recipes = [{
     name: "potato carrot soup",
-    ingredients: ["potato", "carrot"]
+    ingredients: ["potato", "carrot", "broth"]
 }, {
     name: "potato mushroom soup",
-    ingredients: ["potato", "mushroom"]
+    ingredients: ["potato", "mushroom", "broth"]
 }, {
     name: "carrot mushroom soup",
-    ingredients: ["carrot", "mushroom"]
-}
+    ingredients: ["carrot", "mushroom", "broth"]
+},
+    {
+        name: "egg pasta",
+        ingredients: ["egg", "mushroom", "pasta sauce"]
+    },
+    {
+        name: "carrot cake",
+        ingredients: ["carrot", "milk", "egg"]
+    },
+    {
+        name: "carrot cake",
+        ingredients: ["carrot", "milk", "egg"]
+    },
+    {
+        name: "great pasta",
+        ingredients: ["cheese", "pasta", "pasta sauce"]
+    }
 ].map(it => {
     it.vector = ingredientsToFixedVector(it.ingredients);
     return it
