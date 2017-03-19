@@ -30,7 +30,7 @@ Cylon.robot({
             },
             formData: {
                 file: {
-                    value: 'fs.createReadStream(\"' + imageName + '\")',
+                    value: fs.createReadStream(imageName),
                     options: {filename: imageName, contentType: null}
                 }
             }
