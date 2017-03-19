@@ -118,8 +118,8 @@ function insertIngredientToDb(data,callback){
     
         // disconnect the client 
         client.end(function (err) {
-        if (err) throw err;
-    });
+            if (err) throw err;
+        });
     var items = ['a'];
     // items.forEach( function(item){
     //   // execute a query on our database 
@@ -136,7 +136,8 @@ function insertIngredientToDb(data,callback){
     //   });
     // });
     
-  });
+    });
+    });
 }
 function getIngredientFromDb(id,callback){
     //TODO get the items and return in a dataCallBack
