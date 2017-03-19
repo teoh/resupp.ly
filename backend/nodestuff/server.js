@@ -161,7 +161,13 @@ function insertIngredientToDb(data,callback){
 }
 function getIngredientFromDb(id,callback){
     //TODO get the items and return in a dataCallBack
+    //input nothing, you can remove the id if you want
+    //output {"fridgeitem1","fridgeitem2","fridgeitem3",....}
 
+}
+function getRecomedtion(){
+  //input nothing
+  //output {"recipe":bakedbeans, ingredients:["fidgeitem1","fridgeitem2",...]}
 }
 
 app.listen(PORT);
