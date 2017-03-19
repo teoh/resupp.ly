@@ -65,7 +65,7 @@ app.put('/pushnewdata', function (err, req, res) {
 
     // If there is no error while trying to input
     if(!err){
-        insertIngredientToDb(data,insertSuccessful=>{
+        insertIngredientToDb((data,insertSuccessful)=>{
             if(insertSuccessful){
                 console.log("push new data endpoint called");
                 res.status(200).send('You successfully put in new data\n');
@@ -81,6 +81,8 @@ app.put('/pushnewdata', function (err, req, res) {
     }
   
 });
+
+
 function insertIngredientToDb(data,myCallback){
   //TODO parse the data object and put into the data base using the sql object
 
