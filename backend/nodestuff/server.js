@@ -17,6 +17,17 @@ var config = {
   database: 'groceries',
   port: 26257
 };
+// Get ref to the express router
+var router = express.Router();
+router.use(function(req, res, next) {
+    // Set the default headers configs
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Content-Type","application/json");
+    res.header("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+});
+
 
 // Connect to  pg
 pg.connect(config, function (err, client, done) {
@@ -58,7 +69,7 @@ pg.connect(config, function (err, client, done) {
 
 // App
 const app = express();
-app.get('/pushnewdata', function (req, res) {
+router.get('/pushnewdata', function (req, res) {
     //TODO get the data form the body and pass into insertIngredientToDb
 
     // If there is no error while trying to input
@@ -238,6 +249,6 @@ function findKTopRecipes(ingredients, k) {
 function getRecommendations(ingredients) {
     return findKTopRecipes(ingredients, 10)
 }
-
+app.use('/', router);
 app.listen(PORT);
 console.log('Running on http://localhost:' + PORT);
