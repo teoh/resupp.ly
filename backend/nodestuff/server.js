@@ -110,7 +110,7 @@ function insertIngredientToDb(data,callback){
   // connect to our database 
   pg.connect(config,function (err,client) {
     if (err) throw err;
-    client.query('INSERT INTO ingredients (id,item) VALUES (1,"banana");', function (err, result) {
+    client.query('INSERT INTO groceries.ingredients (id,item) VALUES (1,"banana");', function (err, result) {
         if (err) throw err;
     
         // just print the result to the console 
