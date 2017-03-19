@@ -48,11 +48,11 @@ def new_image():
 		file.save('./TEST.png')
 		x = preprocess_image('./TEST.png')
 		preds = M.predict(x)
-
+		
 
         return 'success!'
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=8080, debug=True)
+    app.run(host='0.0.0.0', port=8080, debug=False)
 
     
