@@ -17,23 +17,53 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       :host {
         display: block;
       }
+      
+      .title{
+        top:-300px;
+        left:10%;
+        background:rgba(0,0,0,0.7);
+        color:white;
+        font-weight:100;
+        position:relative;
+        display:inline; 
+        padding:4.5px;
+        max-width:70%;
+        min-width:200px; 
+      }
 
+      .headerImg img{
+        width:100%;
+        height:auto;
+      }
+
+
+      @media(max-width:750px){
+        .headerImg img{
+          width:auto;
+          height:600px;
+        }
+
+        .title{
+          top:-400px;
+        }
+      }
 
     </style>
 
 
-    <div class="headerImg">
-      <img src="/images/groceries-1.jpg" alt="home page food image" height="3840" width="5760" style="width:100%; height:auto;">
-      <div style="max-width:60%; min-width:300px; ">
-        <h1 class="title" style="top:-100px; left:20%; background:rgba(0,0,0,0.7);  color:white; font-weight:100; position:relative; display:inline; "><span style="padding-right:10px; padding-top:3px; padding-bottom:3px; padding-left:10px;">Recepies with what you have.</span><span style="padding-right:10px; padding-top:3px; padding-bottom:3px; padding-left:10px;"> Welcome to Resupp.ly</span></h1>
-      </div>
+    <div class="headerImg" style="margin-bottom:-150px;">
+      <img src="/images/groceries-1.jpg" alt="home page food image" height="3840" width="5760">
+
+        <h1 class="title">Recepies with what you have.</h1></br>
+        <h1 class="title">Welcome to Resupp.ly</h1>
     </div>
+
     
     <div class="card">
-      <div class="circle">1</div>
-      <h1>View One</h1>
-      <p>Ut labores minimum atomorum pro. Laudem tibique ut has.</p>
-      <p>Lorem ipsum dolor sit amet, per in nusquam nominavi periculis, sit elit oportere ea.Lorem ipsum dolor sit amet, per in nusquam nominavi periculis, sit elit oportere ea.Cu mei vide viris gloriatur, at populo eripuit sit.</p>
+      <h2>Realize the potential of whats in your fridge.</h2>
+      <p>Have you ever opened your fridge and looked inside... stunned. Not because you forgot why you're there... but because you don't know what to make for dinner with what you have.</p>
+      <p>Resupply is the solution to your problem.</p>
+      <p>Your Resupply camera takes a picture of the inside of your fridge and intelligently works </p>
     </div>
   </template>
 

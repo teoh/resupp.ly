@@ -44,6 +44,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         --app-drawer-content-container:{
           background-color: rgba(191, 50, 50, 0.8);
           color:white;
+          width:300px;
 
           
         }        
@@ -83,7 +84,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     <app-drawer-layout fullbleed>
       <!-- Drawer content -->
-      <app-drawer id="drawer" align="right">
+      <app-drawer id="drawer" position="right">
         <app-toolbar>Account</app-toolbar>
         <iron-selector selected="[[page]]" attr-for-selected="name" class="drawer-list" role="navigation">
           <a name="view1" href="/view1">Account Information</a>
