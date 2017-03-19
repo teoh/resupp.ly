@@ -54,8 +54,6 @@ pg.connect(config, function (err, client, done) {
   });
 });
 
-var client = new pg.Client();
-
 
 
 // App
@@ -83,12 +81,17 @@ function insertIngredientToDb(data,myCallback){
 
   // Clear out the stuff from the db with that user's info
   // connect to our database 
-  client.connect(config,function (err) {
+  pg.connect(config,function (err) {
     if (err) throw err;
    
     // execute a query on our database 
     client.query('DELETE FROM ingredients WHERE id = $1::int', ['1'], function (err, result) {
-      if (err) throw err;
+       if (err) {
+            throw err;
+            myCallback(false);
+        }else{
+             myCallback(true);
+        }
    
       // just print the result to the console 
       console.log(result.rows[0]); 
@@ -109,7 +112,7 @@ function insertIngredientToDb(data,myCallback){
 
   // Insert the list of items into the table
   // connect to our database 
-  client.connect(config,function (err) {
+  pg.connect(config,function (err) {
     if (err) throw err;
    
     var items = ['a','b','c'];
