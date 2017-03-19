@@ -1,7 +1,4 @@
 var Cylon = require('cylon');
-
-Cylon.start();
-
 Cylon.robot({
   connections: {
     edison: { adaptor: 'intel-iot' }
@@ -18,4 +15,4 @@ Cylon.robot({
         console.log("pushed")
     });
   }
-});
+}).start();
