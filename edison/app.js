@@ -24,8 +24,12 @@ Cylon.robot({
     work: function (my) {
         my.button.on('push', () => {
             my.led.turnOn();
+            console.log("led on")
             setTimeout(() => {
+                console.log("running ffmpeg")
+
                 childProcess.exec('/home/root/bin/ffmpeg/ffmpeg -f video4linux2  -s 1920x1080 -i /dev/video0 -vframes 1 ' + imageName, (error, stdout, stderr) => {
+                    console.log("done ffmpeg")
 
                     console.log('stdout: ' + stdout);
                     console.log('stderr: ' + stderr);
@@ -47,7 +51,7 @@ Cylon.robot({
                         my.led.turnOff();
                     }, 1000);
                 })
-            }, 1000)
+             }, 1000)
         });
     }
 }).start();
