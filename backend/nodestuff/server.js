@@ -62,8 +62,8 @@ app.get('/pushnewdata', function (req, res) {
     //TODO get the data form the body and pass into insertIngredientToDb
 
     // If there is no error while trying to input
-  
-    insertIngredientToDb(data,(callback)=>{
+    console.log(req.body);
+    insertIngredientToDb(req.body,(callback)=>{
         if(callback){
             console.log("push new data endpoint called");
             res.status(200).send('You successfully put in new data\n');
