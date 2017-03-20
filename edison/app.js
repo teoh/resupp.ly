@@ -3,7 +3,9 @@ const childProcess = require('child_process');
     path = require('path');
 const fs = require('fs');
 var request = require("request");
+const imgur = require('imgur-node-api');
 
+imgur.setClientID("f1adc9604875526");
 
 const imageName = "image.png";
 
@@ -23,7 +25,7 @@ Cylon.robot({
     uploadImage: function () {
         const options = {
             method: 'POST',
-            url: 'http://52.228.33.184:6000/new_image',
+            url: 'http://52.228.33.184:6020/new_image',
             headers: {
                 'cache-control': 'no-cache',
                 'content-type': 'multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW'
@@ -35,6 +37,14 @@ Cylon.robot({
                 }
             }
         };
+        fs.readFile(imageName, function (err, original_data) {
+                              var base64Image = original_data.toString('base64');
+
+                          });
+
+        imgur.upload(path.join(__dirname, imageName), function (err, res) {
+          console.log(res.data.link); // Log the imgur url
+          });
 
         request(options, function (error, response, body) {
             if (error) throw new Error(error);
